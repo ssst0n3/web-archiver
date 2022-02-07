@@ -1,6 +1,9 @@
 package uploader
 
-import "github.com/ssst0n3/awesome_libs/log"
+import (
+	"web-archiver/config"
+	"web-archiver/s3/huaweicloud"
+)
 
 type Metadata struct {
 	Url      string
@@ -20,7 +23,13 @@ func Run() {
 }
 
 func Upload(metadata Metadata) {
-	url := metadata.Url
-	path := metadata.FilePath
-	log.Logger.Info(url, path)
+	obs, err := huaweicloud.NewObs(config.AK, config.SK, config.Endpoint, config.BucketName)
+	if err != nil {
+		return
+	}
+	err = obs.Upload(metadata.Url, metadata.Content)
+	if err != nil {
+		return
+	}
+	return
 }
