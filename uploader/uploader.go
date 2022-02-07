@@ -1,10 +1,10 @@
 package uploader
 
 import (
+	"github.com/ssst0n3/web-archiver/config"
+	"github.com/ssst0n3/web-archiver/s3/huaweicloud"
 	"io"
 	"net/url"
-	"web-archiver/config"
-	"web-archiver/s3/huaweicloud"
 )
 
 type Metadata struct {
