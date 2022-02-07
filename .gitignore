@@ -1,2 +1,3 @@
 .idea
 s3/huaweicloud/secret_test.go
+docker-compose.override.yml
