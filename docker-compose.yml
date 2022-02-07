@@ -1,5 +1,11 @@
 version: '3'
 services:
+  single-file:
+    image: screenbreak/singlefile-dockerized
+    entrypoint: python3
+    command: webserver.py
+    expose:
+      - 80
   web-archiver:
     image: web-archiver:v0.1
     build: .
@@ -7,6 +13,7 @@ services:
     ports:
       - "16000:16000"
     environment:
+      SINGLE_FILE_URL: http://single-file
       LOCAL_LISTEN_PORT: 16000
       AK: please input
       SK: please input

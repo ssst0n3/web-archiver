@@ -8,6 +8,7 @@ const (
 	EnvSK              = "SK"
 	EnvEndpoint        = "ENDPOINT"
 	EnvBucketName      = "BUCKET_NAME"
+	EnvSingleFileUrl   = "SINGLE_FILE_URL"
 )
 
 var (
@@ -16,6 +17,7 @@ var (
 	SK              = os.Getenv(EnvSK)
 	Endpoint        = os.Getenv(EnvEndpoint)
 	BucketName      = os.Getenv(EnvBucketName)
+	SingleFileUrl   = os.Getenv(EnvSingleFileUrl)
 )
 
 func init() {
