@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
 	"github.com/ssst0n3/awesome_libs/awesome_error"
+	"github.com/ssst0n3/web-archiver/config"
 	"io"
 	"net/url"
-	"web-archiver/config"
 )
 
 type Obs struct {

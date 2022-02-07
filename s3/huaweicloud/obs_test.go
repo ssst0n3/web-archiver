@@ -2,12 +2,12 @@ package huaweicloud
 
 import (
 	"github.com/ssst0n3/awesome_libs/log"
+	"github.com/ssst0n3/web-archiver/config"
 	"github.com/stretchr/testify/assert"
 	"io"
 	"net/url"
 	"strings"
 	"testing"
-	"web-archiver/config"
 )
 
 func NewObsForTest(t *testing.T) (o *Obs) {

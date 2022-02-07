@@ -1,4 +1,4 @@
-module web-archiver
+module github.com/ssst0n3/web-archiver
 
 go 1.16
 

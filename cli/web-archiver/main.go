@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/ssst0n3/awesome_libs/awesome_error"
-	v1 "web-archiver/api/v1"
-	"web-archiver/archiver"
-	"web-archiver/config"
-	"web-archiver/uploader"
+	v1 "github.com/ssst0n3/web-archiver/api/v1"
+	"github.com/ssst0n3/web-archiver/archiver"
+	"github.com/ssst0n3/web-archiver/config"
+	"github.com/ssst0n3/web-archiver/uploader"
 )
 
 func main() {

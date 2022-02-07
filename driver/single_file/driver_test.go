@@ -2,10 +2,10 @@ package single_file
 
 import (
 	"github.com/ssst0n3/awesome_libs/log"
+	"github.com/ssst0n3/web-archiver/config"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
 	"testing"
-	"web-archiver/config"
 )
 
 func TestSingleFile(t *testing.T) {
