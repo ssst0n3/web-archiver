@@ -1,0 +1,14 @@
+version: '3'
+services:
+  web-archiver:
+    image: web-archiver:v0.1
+    build: .
+    restart: always
+    ports:
+      - "16000:16000"
+    environment:
+      LOCAL_LISTEN_PORT: 16000
+      AK: please input
+      SK: please input
+      ENDPOINT: please input
+      BUCKET_NAME: please input
