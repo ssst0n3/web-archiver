@@ -1,9 +1,7 @@
 package archiver
 
 import (
-	"context"
-	"github.com/go-shiori/obelisk"
-	"github.com/ssst0n3/awesome_libs/awesome_error"
+	"web-archiver/driver/single_file"
 	"web-archiver/uploader"
 )
 
@@ -19,27 +17,13 @@ func Run() {
 }
 
 func Work(url string) {
-	result, err := Archive(url)
+	reader, err := single_file.SingleFile(url)
 	if err != nil {
 		return
 	}
 	meta := uploader.Metadata{
 		Url:     url,
-		Content: result,
+		Content: reader,
 	}
 	uploader.Pool <- meta
-}
-
-func Archive(url string) (content []byte, err error) {
-	req := obelisk.Request{
-		URL: url,
-	}
-	arc := obelisk.Archiver{EnableLog: true}
-	arc.Validate()
-	content, _, err = arc.Archive(context.Background(), req)
-	if err != nil {
-		awesome_error.CheckErr(err)
-		return
-	}
-	return
 }

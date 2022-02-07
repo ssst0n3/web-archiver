@@ -1,9 +1,12 @@
 package huaweicloud
 
 import (
-	"bytes"
+	"fmt"
 	"github.com/huaweicloud/huaweicloud-sdk-go-obs/obs"
 	"github.com/ssst0n3/awesome_libs/awesome_error"
+	"io"
+	"net/url"
+	"web-archiver/config"
 )
 
 type Obs struct {
@@ -21,15 +24,28 @@ func NewObs(ak, sk, endpoint, bucketName string) (o *Obs, err error) {
 	return
 }
 
-func (o Obs) Upload(key string, content []byte) (err error) {
-	input := &obs.PutObjectInput{}
-	input.Bucket = o.bucketName
-	input.Key = key
-	input.Body = bytes.NewReader(content)
+func (o Obs) Upload(key string, reader io.ReadCloser) (obsAddress string, err error) {
+	input := &obs.PutObjectInput{
+		PutObjectBasicInput: obs.PutObjectBasicInput{
+			ObjectOperationInput: obs.ObjectOperationInput{
+				Bucket: o.bucketName,
+				Key:    key,
+				ACL:    obs.AclPublicRead,
+			},
+			ContentType: "text/html",
+		},
+		Body: reader,
+	}
 	_, err = o.obsClient.PutObject(input)
 	if err != nil {
 		awesome_error.CheckErr(err)
 		return
 	}
+	err = reader.Close()
+	if err != nil {
+		awesome_error.CheckErr(err)
+		return
+	}
+	obsAddress = fmt.Sprintf("https://%s.%s/%s", config.BucketName, config.Endpoint, url.QueryEscape(key))
 	return
 }

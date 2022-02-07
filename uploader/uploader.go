@@ -1,6 +1,8 @@
 package uploader
 
 import (
+	"io"
+	"net/url"
 	"web-archiver/config"
 	"web-archiver/s3/huaweicloud"
 )
@@ -8,7 +10,7 @@ import (
 type Metadata struct {
 	Url      string
 	FilePath string
-	Content  []byte
+	Content  io.ReadCloser
 }
 
 var (
@@ -22,12 +24,17 @@ func Run() {
 	}
 }
 
-func Upload(metadata Metadata) {
+func Canonicalize(u string) (key string) {
+	return url.PathEscape(u)
+}
+
+func Upload(metadata Metadata) (archiveAddress string, err error) {
 	obs, err := huaweicloud.NewObs(config.AK, config.SK, config.Endpoint, config.BucketName)
 	if err != nil {
 		return
 	}
-	err = obs.Upload(metadata.Url, metadata.Content)
+	key := Canonicalize(metadata.Url)
+	archiveAddress, err = obs.Upload(key, metadata.Content)
 	if err != nil {
 		return
 	}
